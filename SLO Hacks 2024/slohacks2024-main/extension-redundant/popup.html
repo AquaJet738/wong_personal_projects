@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>EcoFriend</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 300px;
+      font-family: 'Verdana', sans-serif;
+    }
+
+    .titlebar {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      background-color: #f2f2f2;
+      width: 100%;
+      padding: 10px;
+    }
+
+    .title-image {
+      width: 3em;
+      height: 3em;
+    }
+
+    h1 {
+      font-size: 1.75em;
+      color: #207d0d;
+    }
+
+    h2 {
+      font-size: 1.25em;
+      font-weight: normal;
+      padding: 5px 20px;
+      border-bottom: 1px solid #f2f2f2;
+    }
+
+    h3 {
+      font-size: 1.25em;
+      font-weight: normal;
+    }
+
+    p {
+      font-size: 1em;
+    }
+
+    .list-title {
+      padding: 5px 15px;
+    }
+
+    .product:first-of-type {
+      border-top: 1px solid #f2f2f2;
+    }
+
+    .product {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      padding: 5px;
+      border-bottom: 1px solid #f2f2f2;
+    }
+
+    .product-list {
+      padding: 5px 0;
+    }
+
+    .product-image {
+      min-width: 80px;
+      min-height: 80px;
+      width: 80px;
+      height: 80px;
+      background: black;
+    }
+
+    .product-details {
+      display: flex;
+      padding: 5px 0;
+    }
+
+    .product-price {
+      width: 50%;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      padding: 5px;
+      padding-bottom: 10px;
+    }
+
+    .button-style {
+      font-size: 1.25em;
+      background-color: #f2f2f2;
+      color: black;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 1em;
+      cursor: pointer;
+      padding: 0.5em;
+    }
+  </style>
+</head>
+
+<body>
+  
+
+  <div class="titlebar">
+    <img class="title-image" src="./logo.png" />
+    <h1>Amazon EcoFriend</h1>
+  </div>
+
+  <h3 class="list-title">Ecofriendly results for xxxxxx</h3>
+
+  <div class="product-list">
+    <div class="product">
+      <img class="product-image" src="https://m.media-amazon.com/images/I/71cFWxqUicL._SY355_.jpg" />
+      <div class="product-info">
+        <h3 class="product-name">PURA D'OR Original Gold Label Anti-Thinning Biotin Shampoo...</h3>
+        <div class="product-details">
+          <p class="product-price">$28.49</p>
+          <p class="product-rating">4.3/5</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="product">
+      <img class="product-image" src="https://m.media-amazon.com/images/I/61YSg1spuxL._SX466_.jpg" />
+      <div class="product-info">
+        <h3 class="product-name">Mielle Organics Rosemary Mint Strengthening Shampoo...</h3>
+        <div class="product-details">
+          <p class="product-price">$9.97</p>
+          <p class="product-rating">4.5/5</p>  
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="test"></div>
+
+  <div class="button-container">
+    <a class="button-style" target="_blank" href="https://www.amazon.com">See More Results</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>
