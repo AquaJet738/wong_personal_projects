@@ -4,6 +4,8 @@ from sqlalchemy.orm import Session
 from database import SessionLocal, engine
 from models import Task, Base
 
+
+# command line: uvicorn main:app --reload
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,

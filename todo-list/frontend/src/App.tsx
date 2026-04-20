@@ -9,7 +9,8 @@ type Task = {
 
 function App() {
     const [tasks, setTasks] = useState<Task[]>([]);
-    const [input, setInput] = useState("");    
+    const [input, setInput] = useState("");
+    const [showError, setShowError] = useState(false)
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -22,15 +23,21 @@ function App() {
     }, []);
 
     const addTask = async () => {
-        await fetch("http://localhost:8000/tasks", {
+        if (!input.trim()) {
+            setShowError(true);
+            setTimeout(() => setShowError(false), 3000);
+            return;
+        }
+
+        const res = await fetch("http://localhost:8000/tasks", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ title: input })
         });
 
-        const res = await fetch("http://localhost:8000/tasks");
-        const data = await res.json();
-        setTasks(data);
+        const newTask: Task = await res.json();
+        setTasks(prev => [...prev, newTask]);
+        console.log(tasks);
     };
 
     const update_task = async (taskId: number) => {
@@ -41,10 +48,9 @@ function App() {
         const updatedTask: Task = await res.json();
 
         setTasks(prev =>
-            prev.map(task =>
-            task.id === taskId ? updatedTask : task
-            )
+            prev.map(task => task.id === taskId ? updatedTask : task)
         );
+        console.log(tasks);
     };
 
     const delete_task = async (taskId: number) => {
@@ -53,27 +59,44 @@ function App() {
         });
 
         setTasks(prev => prev.filter(task => task.id !== taskId));
+        console.log(tasks);
     };
 
 
     return (
-        <div>
+        <div className="app">
             <h1>Todo List</h1>
-            <input onChange={(e) => setInput(e.target.value)} />
-            <button onClick={addTask}>Add</button>
 
-            {tasks.map(task => (
-                <div key={task.id}>
-                    <span style={{
-                        textDecoration: task.completed ? "line-through" : "none"
-                        }}>
-                        {task.title}
+            <div className="input-row">
+                <input
+                value={input}
+                onChange={(e) => {
+                    setInput(e.target.value);
+                    if (showError) setShowError(false);
+                }}
+                placeholder="Add a task..."
+                />
+                <button onClick={addTask}>Add</button>
+            </div>
+
+            {showError && (
+                <div className="error-popup">
+                    ⚠️ No text added — please enter a task first.
+                </div>
+            )}
+
+            <div className="task-list">
+                {tasks.map(task => (
+                <div key={task.id} className="task">
+                    <span className={task.completed ? "completed" : ""}>
+                    {task.title}
                     </span>
 
                     <button onClick={() => update_task(task.id)}>✓</button>
                     <button onClick={() => delete_task(task.id)}>X</button>
                 </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 }

@@ -1,0 +1,102 @@
+/* center app */
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+/* container */
+.app {
+  background: white;
+  padding: 20px 25px;
+  border-radius: 10px;
+  width: 350px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* title */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* input row */
+.input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-row input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.input-row button {
+  padding: 8px 12px;
+  border: none;
+  background: #4CAF50;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.input-row button:hover {
+  background: #45a049;
+}
+
+/* task list */
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* completed task */
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+/* buttons */
+.actions button {
+  margin-left: 5px;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.actions button:first-child {
+  background: #2196F3;
+  color: white;
+}
+
+.actions button:last-child {
+  background: #f44336;
+  color: white;
+}
+
+/* error popup */
+.error-popup {
+    margin-top: 8px;
+    padding: 10px 16px;
+    background-color: #ffe4e4;
+    border: 1px solid #f5a0a0;
+    border-radius: 6px;
+    color: #c0392b;
+    font-size: 0.9rem;
+    animation: fadeIn 0.2s ease;
+}
+ 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+ 
