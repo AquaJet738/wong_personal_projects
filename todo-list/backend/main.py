@@ -1,8 +1,27 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
 from models import Task, Base
+
+
+def get_db():
+    db = SessionLocal()
+
+    try:
+        yield db
+    finally:
+        db.close()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # run on startup
+    # Base.metadata.drop_all(bind=engine)
+    Base.metadata.create_all(bind=engine)
+    yield  # app runs here
+
+app = FastAPI(lifespan=lifespan)
 
 
 # command line: uvicorn main:app --reload
@@ -15,15 +34,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-Base.metadata.create_all(bind=engine)
-
-def get_db():
-    db = SessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
 
 @app.get("/tasks")
 def get_tasks(db: Session = Depends(get_db)):
@@ -39,15 +49,16 @@ def create_task(task: dict, db: Session = Depends(get_db)):
 
 @app.put("/tasks/{task_id}")
 def update_task(task_id: int, db: Session = Depends(get_db)):
-    task = db.get(Task, task_id)
+    task = db.query(Task).get(task_id)
 
     # null check
     if task is None:
         raise HTTPException(status_code=404, detail="Task not found")
 
     task.completed = True
+    db.delete(task)
     db.commit()
-    return task
+    return {"message": "completed"}
 
 @app.delete("/tasks/{task_id}")
 def delete_task(task_id: int, db: Session = Depends(get_db)):

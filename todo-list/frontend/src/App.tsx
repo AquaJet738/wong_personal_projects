@@ -37,6 +37,7 @@ function App() {
 
         const newTask: Task = await res.json();
         setTasks(prev => [...prev, newTask]);
+        setInput("")
         console.log(tasks);
     };
 
@@ -86,12 +87,12 @@ function App() {
             )}
 
             <div className="task-list">
-                {tasks.map(task => (
+                {tasks.filter(task => task.id != null).map(task => (
                 <div key={task.id} className="task">
                     <span className={task.completed ? "completed" : ""}>
                     {task.title}
                     </span>
-
+ 
                     <button onClick={() => update_task(task.id)}>✓</button>
                     <button onClick={() => delete_task(task.id)}>X</button>
                 </div>
