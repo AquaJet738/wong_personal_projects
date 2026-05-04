@@ -94,6 +94,15 @@ h1 {
     font-size: 0.9rem;
     animation: fadeIn 0.2s ease;
 }
+
+.task {
+    display: flex;
+    align-items: center;
+}
+
+.task span {
+    flex: 0.95;
+}
  
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-4px); }
